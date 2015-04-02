@@ -1,5 +1,16 @@
 Posts = new Meteor.Collection('posts');
 
+Posts.allow({
+	update: function (userId, doc) { return ownsDocument(userId, doc);},
+	remove: function (userId, doc) { return ownsDocument(userId, doc);}
+});
+
+Posts.deny({
+	update: function (userId, doc, fields) {
+		return (_without(fields, 'url', 'title').length > 0);
+	}
+});
+
 Meteor.methods({
 	postInsert: function (postAttributes) {
 		check(this.userId, String);

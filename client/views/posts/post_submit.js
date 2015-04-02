@@ -12,8 +12,8 @@ Template.postSubmit.events({
 			if (error) {
 				return alert(error.reason);
 			};
-
-			Router.go(POST_PAGE, {_id: result._id});
 		});
+
+		Router.go(POST_LIST);
 	}
 });
